@@ -1,13 +1,17 @@
 package date
 
 import (
+	"errors"
 	"strings"
 	"time"
 )
 
 type DatetimeInterface interface {
 	// FormatDate is a function to format a received date according to the custom parameter 'format'
-	FormatDate(date time.Time, format string) string
+	FormatDate(date string, format string) (string, error)
+
+	// FormatDatetime is a function to format a received date according to the custom parameter 'format'
+	FormatDatetime(date time.Time, format string) string
 
 	// DatetimeNow is a function to get current date and time and format according to custom parameter 'format'
 	GetDateNow(format string) string
@@ -19,7 +23,27 @@ func NewDatetime() DatetimeInterface {
 	return &Datetime{}
 }
 
-func (a *Datetime) FormatDate(date time.Time, format string) string {
+const defaultFormat = "2006-01-02 15:04:05"
+
+func (a *Datetime) FormatDate(date string, format string) (string, error) {
+	date = strings.ReplaceAll(date, "T", " ")
+	if len(date) == 10 {
+		date = date + " 00:00:00"
+	}
+	if len(date) != 19 {
+		return "", errors.New("Unexpected format, accepted formats are 'yyyy-MM-dd', 'yyyy-MM-dd HH:mm:ss' and 'yyy-MM-ddTHH:mm:ss'")
+	}
+	responseDate, err := time.Parse(defaultFormat, date)
+	if err != nil {
+		return "", err
+	}
+
+	format = a.replaceFormat(format)
+
+	return responseDate.Format(format), nil
+}
+
+func (a *Datetime) FormatDatetime(date time.Time, format string) string {
 	return date.Format(a.replaceFormat(format))
 }
 
