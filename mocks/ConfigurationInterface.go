@@ -3,8 +3,7 @@
 package mocks
 
 import (
-	mysql "cabother-go-helpers/pkg/mysql"
-
+	mysql "github.com/cabother/cabother-go-helpers/pkg/mysql"
 	mock "github.com/stretchr/testify/mock"
 )
 

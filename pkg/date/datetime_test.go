@@ -42,8 +42,32 @@ func Test_HourFormat1_Success(t *testing.T) {
 	assert.NotNil(t, data)
 }
 
-func Test_DatetimeNowFormatDate_Success(t *testing.T) {
+func Test_DatetimeNowFormatDatetime_Success(t *testing.T) {
 	data := time.Now()
-	responseData := NewDatetime().FormatDate(data, "dd-MM-yyyy'T'HH:mm:ssZ")
+	responseData := NewDatetime().FormatDatetime(data, "dd-MM-yyyy'T'HH:mm:ssZ")
+	assert.NotNil(t, responseData)
+}
+
+func Test_FormatDateAndTime_Success(t *testing.T) {
+	responseData, formatError := NewDatetime().FormatDate("2021-12-27 19:35:44", "dd-MM-yyyy'T'HH:mm:ssZ")
+	assert.Nil(t, formatError)
+	assert.NotNil(t, responseData)
+}
+
+func Test_FormatDate_Success(t *testing.T) {
+	responseData, formatError := NewDatetime().FormatDate("2021-12-27", "dd-MM-yyyy'T'HH:mm:ssZ")
+	assert.Nil(t, formatError)
+	assert.NotNil(t, responseData)
+}
+
+func Test_FormatDateWhitoutT_Success(t *testing.T) {
+	responseData, formatError := NewDatetime().FormatDate("2021-12-27", "dd-MM-yyyy HH:mm:ssZ")
+	assert.Nil(t, formatError)
+	assert.NotNil(t, responseData)
+}
+
+func Test_FormatDateWhitoutMilisseconds_Success(t *testing.T) {
+	responseData, formatError := NewDatetime().FormatDate("2021-12-27", "dd-MM-yyyy HH:mm:ss")
+	assert.Nil(t, formatError)
 	assert.NotNil(t, responseData)
 }

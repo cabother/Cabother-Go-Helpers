@@ -3,8 +3,7 @@
 package mocks
 
 import (
-	so "cabother-go-helpers/pkg/so"
-
+	so "github.com/cabother/cabother-go-helpers/pkg/so"
 	mock "github.com/stretchr/testify/mock"
 )
 

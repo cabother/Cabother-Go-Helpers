@@ -14,7 +14,28 @@ type DatetimeInterface struct {
 }
 
 // FormatDate provides a mock function with given fields: _a0, format
-func (_m *DatetimeInterface) FormatDate(_a0 time.Time, format string) string {
+func (_m *DatetimeInterface) FormatDate(_a0 string, format string) (string, error) {
+	ret := _m.Called(_a0, format)
+
+	var r0 string
+	if rf, ok := ret.Get(0).(func(string, string) string); ok {
+		r0 = rf(_a0, format)
+	} else {
+		r0 = ret.Get(0).(string)
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(string, string) error); ok {
+		r1 = rf(_a0, format)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// FormatDatetime provides a mock function with given fields: _a0, format
+func (_m *DatetimeInterface) FormatDatetime(_a0 time.Time, format string) string {
 	ret := _m.Called(_a0, format)
 
 	var r0 string
