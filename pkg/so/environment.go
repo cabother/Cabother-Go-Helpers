@@ -6,8 +6,7 @@ type EnvironmentInterface interface {
 	GetEnvironmentConfigs() *EnvironmentConfig
 }
 
-type Environment struct {
-}
+type Environment struct{}
 
 func NewEnvironment() EnvironmentInterface {
 	return &Environment{}
