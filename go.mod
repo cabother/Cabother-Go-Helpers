@@ -1,4 +1,4 @@
-module cabother-go-helpers
+module github.com/cabother/cabother-go-helpers
 
 go 1.18
 
