@@ -27,6 +27,8 @@ const defaultFormat = "2006-01-02 15:04:05"
 
 func (a *Datetime) FormatDate(date string, format string) (string, error) {
 	date = strings.ReplaceAll(date, "T", " ")
+	date = strings.ReplaceAll(date, "Z", "")
+
 	if len(date) == 10 {
 		date = date + " 00:00:00"
 	}
