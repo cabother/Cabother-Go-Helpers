@@ -45,7 +45,7 @@ type MySQLService struct {
 }
 
 func NewMySQLService(config DBConfig) (MySQLServiceInterface, error) {
-	fmt.Println("Connecting to MySql database...")
+	fmt.Println("[Cabother - Go Helpers] Connecting to MySql database...")
 
 	dsn := config.toMySQLConnectionString()
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
