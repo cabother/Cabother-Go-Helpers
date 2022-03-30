@@ -12,6 +12,34 @@ type EnvironmentInterface struct {
 	mock.Mock
 }
 
+// GetEnv provides a mock function with given fields: name
+func (_m *EnvironmentInterface) GetEnv(name string) string {
+	ret := _m.Called(name)
+
+	var r0 string
+	if rf, ok := ret.Get(0).(func(string) string); ok {
+		r0 = rf(name)
+	} else {
+		r0 = ret.Get(0).(string)
+	}
+
+	return r0
+}
+
+// GetEnvOrDefault provides a mock function with given fields: name, defaultValue
+func (_m *EnvironmentInterface) GetEnvOrDefault(name string, defaultValue string) string {
+	ret := _m.Called(name, defaultValue)
+
+	var r0 string
+	if rf, ok := ret.Get(0).(func(string, string) string); ok {
+		r0 = rf(name, defaultValue)
+	} else {
+		r0 = ret.Get(0).(string)
+	}
+
+	return r0
+}
+
 // GetEnvironmentConfigs provides a mock function with given fields:
 func (_m *EnvironmentInterface) GetEnvironmentConfigs() *so.EnvironmentConfig {
 	ret := _m.Called()

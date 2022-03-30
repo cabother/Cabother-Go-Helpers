@@ -1,0 +1,18 @@
+version: "3"
+
+networks:
+  application: {}
+
+services:
+  database:
+    image: mysql:latest
+    networks:
+    - application
+    platform: linux/amd64
+    ports:
+    - 3306:3306
+    environment:
+      MYSQL_USER: cabothergohelpers
+      MYSQL_PASSWORD: cabothergohelpers
+      MYSQL_DATABASE: cabothergohelpers
+      MYSQL_ROOT_PASSWORD: cabothergohelpers

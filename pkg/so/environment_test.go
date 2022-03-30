@@ -19,7 +19,13 @@ func TestMain(m *testing.M) {
 	os.Exit(exitVal)
 }
 
-const goEnvironmentValue = "production"
+const (
+	goEnvironmentValue  = "production"
+	testEnvKey          = "test_env_key"
+	testEnvValue        = "test_env_value"
+	testDefaultEnvKey   = "test_default_env_key"
+	testDefaultEnvValue = "test_default_env_value"
+)
 
 func Test_GetEnvironmentConfigs_Success(t *testing.T) {
 	os.Setenv(goEnvironmentKey, goEnvironmentValue)
@@ -30,4 +36,26 @@ func Test_GetEnvironmentConfigs_Success(t *testing.T) {
 
 	assert.NotNil(t, configs)
 	assert.Equal(t, goEnvironmentValue, configs.Scope)
+}
+
+func Test_GetEnv_Success(t *testing.T) {
+	os.Setenv(testEnvKey, testEnvValue)
+
+	value := NewEnvironment().GetEnv(testEnvKey)
+
+	os.Setenv(testEnvKey, "")
+
+	assert.NotNil(t, value)
+	assert.Equal(t, testEnvValue, value)
+}
+
+func Test_GetEnvOrDefault_Success(t *testing.T) {
+	os.Setenv(testDefaultEnvKey, testDefaultEnvValue)
+
+	value := NewEnvironment().GetEnvOrDefault(testDefaultEnvKey, "")
+
+	os.Setenv(testDefaultEnvKey, "")
+
+	assert.NotNil(t, value)
+	assert.Equal(t, testDefaultEnvValue, value)
 }
