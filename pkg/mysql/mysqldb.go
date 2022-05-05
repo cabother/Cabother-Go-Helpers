@@ -8,6 +8,8 @@ import (
 	"gorm.io/gorm"
 )
 
+const defaultMySQLPort = 3306
+
 type MySQLServiceInterface interface {
 	Create(value interface{}) (tx *gorm.DB)
 	CreateInBatches(value interface{}, batchSize int) (tx *gorm.DB)
@@ -173,6 +175,7 @@ func (a *MySQLService) Exec(sql string, values ...interface{}) (tx *gorm.DB) {
 }
 
 type DBConfig struct {
+	Port     int
 	Host     string
 	Database string
 	Username string
@@ -180,11 +183,16 @@ type DBConfig struct {
 }
 
 func (c *DBConfig) toMySQLConnectionString() string {
+	if c.Port == 0 {
+		c.Port = defaultMySQLPort
+	}
+
 	return fmt.Sprintf(
-		"%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
+		"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
 		c.Username,
 		c.Password,
 		c.Host,
+		c.Port,
 		c.Database,
 	)
 }
