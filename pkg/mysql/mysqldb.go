@@ -58,6 +58,16 @@ func NewMySQLService(config DBConfig) (MySQLServiceInterface, error) {
 	return &MySQLService{db}, nil
 }
 
+func NewMySQLServiceByDSN(dsn string) (MySQLServiceInterface, error) {
+	fmt.Println("[Cabother - Go Helpers] Connecting to MySql database by dsn...")
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		return nil, err
+	}
+
+	return &MySQLService{db}, nil
+}
+
 func (a *MySQLService) Create(value interface{}) (tx *gorm.DB) {
 	return a.DB.Create(value)
 }

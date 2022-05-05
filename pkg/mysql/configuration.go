@@ -9,11 +9,13 @@ const (
 	defaultHostName     = "MYSQL_DB_HOST"
 	defaultUserName     = "MYSQL_DB_USER"
 	defaultPasswordName = "MYSQL_DB_PASSWORD"
+	defaultPort         = "MYSQL_DB_PORT"
 
 	defaultDatabaseValue = "cabothergohelpers"
 	defaultHostValue     = "cabothergohelpers"
 	defaultUserValue     = "cabothergohelpers"
 	defaultPasswordValue = "cabothergohelpers"
+	defaultPortValue     = 3306
 )
 
 type ConfigurationInterface interface {
@@ -47,12 +49,14 @@ func (a *Configuration) GetDefaultMySQLConfigs() *MySQLConfig {
 	host := a.env.GetEnvOrDefault(defaultHostName, defaultHostValue)
 	user := a.env.GetEnvOrDefault(defaultUserName, defaultUserValue)
 	password := a.env.GetEnvOrDefault(defaultPasswordName, defaultPasswordValue)
+	port := a.env.GetIntEnvOrDefault(defaultPort, defaultPortValue)
 
 	return &MySQLConfig{
 		MySQLDatabase: database,
 		MySQLHost:     host,
 		MySQLUsername: user,
 		MySQLPassword: password,
+		MySQLPort:     port,
 	}
 }
 
@@ -61,4 +65,5 @@ type MySQLConfig struct {
 	MySQLDatabase string
 	MySQLUsername string
 	MySQLPassword string
+	MySQLPort     int
 }
