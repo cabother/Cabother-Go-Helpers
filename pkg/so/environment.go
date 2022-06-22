@@ -9,6 +9,7 @@ type EnvironmentInterface interface {
 	GetEnv(name string) string
 	GetEnvOrDefault(name string, defaultValue string) string
 	GetIntEnvOrDefault(name string, defaultValue int) int
+	GetBooleanEnvOrDefault(name string, defaultValue bool) bool
 	GetEnvironmentConfigs() *EnvironmentConfig
 }
 
@@ -54,6 +55,18 @@ func (a *Environment) GetEnv(name string) string {
 		return value
 	}
 	return value
+}
+
+func (a *Environment) GetBooleanEnvOrDefault(name string, defaultValue bool) bool {
+	value := a.GetEnv(name)
+	if value == "" {
+		return defaultValue
+	}
+	var booleanValue bool
+
+	fmt.Sscan(value, &booleanValue)
+
+	return booleanValue
 }
 
 type EnvironmentConfig struct {

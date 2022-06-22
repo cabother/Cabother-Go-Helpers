@@ -1,4 +1,4 @@
-package mysql
+package configuration
 
 import (
 	environment "github.com/cabother/cabother-go-helpers/pkg/so"

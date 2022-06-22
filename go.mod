@@ -3,9 +3,9 @@ module github.com/cabother/cabother-go-helpers
 go 1.18
 
 require (
-	github.com/stretchr/testify v1.7.1
-	gorm.io/driver/mysql v1.3.3
-	gorm.io/gorm v1.23.5
+	github.com/stretchr/testify v1.7.4
+	gorm.io/driver/mysql v1.3.4
+	gorm.io/gorm v1.23.6
 )
 
 require (
@@ -14,6 +14,6 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/stretchr/objx v0.3.0 // indirect
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
+	github.com/stretchr/objx v0.4.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
