@@ -14,6 +14,10 @@ type Handler interface {
 
 type handler struct{}
 
+func New() Handler {
+	return &handler{}
+}
+
 // Health
 func (a *handler) Health(c *gin.Context) {
 	response := Entity{}
