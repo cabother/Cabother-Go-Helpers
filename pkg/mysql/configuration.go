@@ -5,14 +5,14 @@ import (
 )
 
 const (
-	defaultDatabaseName = "MYSQL_DB_NAME"
 	defaultHostName     = "MYSQL_DB_HOST"
+	defaultDatabaseName = "MYSQL_DB_NAME"
 	defaultUserName     = "MYSQL_DB_USER"
 	defaultPasswordName = "MYSQL_DB_PASSWORD"
 	defaultPort         = "MYSQL_DB_PORT"
 
+	defaultHostValue     = "127.0.0.1"
 	defaultDatabaseValue = "cabothergohelpers"
-	defaultHostValue     = "cabothergohelpers"
 	defaultUserValue     = "cabothergohelpers"
 	defaultPasswordValue = "cabothergohelpers"
 	defaultPortValue     = 3306
@@ -27,7 +27,7 @@ type Configuration struct {
 	env environment.EnvironmentInterface
 }
 
-func NewConfiguration(env environment.EnvironmentInterface) ConfigurationInterface {
+func New(env environment.EnvironmentInterface) ConfigurationInterface {
 	return &Configuration{env}
 }
 
