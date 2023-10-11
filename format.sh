@@ -11,7 +11,7 @@ for filePath in $(find . -name "*.go")
 do  
     path=`echo $filePath | rev | cut -d"/" -f2- | rev`
     cd $path
-    mockery --all --recursive=true
+    mockery --all --recursive=true --with-expecter --case=underscore
     cd $rootPath
 done
 

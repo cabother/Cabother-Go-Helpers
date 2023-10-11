@@ -5,22 +5,22 @@ import (
 	"os"
 )
 
-type EnvironmentInterface interface {
+type Environment interface {
 	GetEnv(name string) string
 	GetEnvOrDefault(name string, defaultValue string) string
 	GetIntEnvOrDefault(name string, defaultValue int) int
 	GetEnvironmentConfigs() *EnvironmentConfig
 }
 
-type Environment struct{}
+type environment struct{}
 
-func NewEnvironment() EnvironmentInterface {
-	return &Environment{}
+func NewEnvironment() Environment {
+	return &environment{}
 }
 
 const goEnvironmentKey = "GO_ENVIRONMENT"
 
-func (a *Environment) GetEnvironmentConfigs() *EnvironmentConfig {
+func (a *environment) GetEnvironmentConfigs() *EnvironmentConfig {
 	env := &EnvironmentConfig{
 		Scope: a.GetEnv(goEnvironmentKey),
 	}
@@ -28,7 +28,7 @@ func (a *Environment) GetEnvironmentConfigs() *EnvironmentConfig {
 	return env
 }
 
-func (a *Environment) GetEnvOrDefault(name string, defaultValue string) string {
+func (a *environment) GetEnvOrDefault(name string, defaultValue string) string {
 	value := a.GetEnv(name)
 	if value == "" {
 		return defaultValue
@@ -36,7 +36,7 @@ func (a *Environment) GetEnvOrDefault(name string, defaultValue string) string {
 	return value
 }
 
-func (a *Environment) GetIntEnvOrDefault(name string, defaultValue int) int {
+func (a *environment) GetIntEnvOrDefault(name string, defaultValue int) int {
 	value := a.GetEnv(name)
 	if value == "" {
 		return defaultValue
@@ -48,7 +48,7 @@ func (a *Environment) GetIntEnvOrDefault(name string, defaultValue int) int {
 	return integerValue
 }
 
-func (a *Environment) GetEnv(name string) string {
+func (a *environment) GetEnv(name string) string {
 	value := os.Getenv(name)
 	if value != "" {
 		return value

@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-type DatetimeInterface interface {
+type Datetime interface {
 	// FormatDate is a function to format a received date according to the custom parameter 'format'
 	FormatDate(date string, format string) (string, error)
 
@@ -17,15 +17,15 @@ type DatetimeInterface interface {
 	GetDateNow(format string) string
 }
 
-type Datetime struct{}
+type datetime struct{}
 
-func NewDatetime() DatetimeInterface {
-	return &Datetime{}
+func NewDatetime() Datetime {
+	return &datetime{}
 }
 
 const defaultFormat = "2006-01-02 15:04:05"
 
-func (a *Datetime) FormatDate(date string, format string) (string, error) {
+func (a *datetime) FormatDate(date string, format string) (string, error) {
 	date = strings.ReplaceAll(date, "T", " ")
 	date = strings.ReplaceAll(date, "Z", "")
 
@@ -45,15 +45,15 @@ func (a *Datetime) FormatDate(date string, format string) (string, error) {
 	return responseDate.Format(format), nil
 }
 
-func (a *Datetime) FormatDatetime(date time.Time, format string) string {
+func (a *datetime) FormatDatetime(date time.Time, format string) string {
 	return date.Format(a.replaceFormat(format))
 }
 
-func (a *Datetime) GetDateNow(format string) string {
+func (a *datetime) GetDateNow(format string) string {
 	return time.Now().Format(a.replaceFormat(format))
 }
 
-func (a *Datetime) replaceFormat(format string) string {
+func (a *datetime) replaceFormat(format string) string {
 	format = strings.ReplaceAll(format, "yyyy", "2006")
 	format = strings.ReplaceAll(format, "yy", "06")
 	format = strings.ReplaceAll(format, "MMMM", "January")
