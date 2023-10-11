@@ -11,32 +11,32 @@ const (
 	defaultPasswordName = "POSTGRESQL_DB_PASSWORD"
 	defaultPort         = "POSTGRESQL_DB_PORT"
 
-	defaultHostValue     = "127.0.0.1ððð"
+	defaultHostValue     = "127.0.0.1"
 	defaultDatabaseValue = "cabothergohelpers"
 	defaultUserValue     = "cabothergohelpers"
 	defaultPasswordValue = "cabothergohelpers"
 	defaultPortValue     = 5432
 )
 
-type ConfigurationInterface interface {
-	GetDefaultPostgreSQLConfigs() *MySQLConfig
-	GetCustomPostgreSQLConfigs(database string, host string, username string, password string) *MySQLConfig
+type Configuration interface {
+	GetDefaultPostgreSQLConfigs() *PostgreSQLConfig
+	GetCustomPostgreSQLConfigs(database string, host string, username string, password string) *PostgreSQLConfig
 }
 
-type Configuration struct {
-	env environment.EnvironmentInterface
+type configuration struct {
+	env environment.Environment
 }
 
-func New(env environment.EnvironmentInterface) ConfigurationInterface {
-	return &Configuration{env}
+func New(env environment.Environment) Configuration {
+	return &configuration{env}
 }
 
-func (a *Configuration) GetCustomPostgreSQLConfigs(database string,
+func (a *configuration) GetCustomPostgreSQLConfigs(database string,
 	host string,
 	username string,
 	password string,
-) *MySQLConfig {
-	return &MySQLConfig{
+) *PostgreSQLConfig {
+	return &PostgreSQLConfig{
 		PostgreSQLDatabase: database,
 		PostgreSQLHost:     host,
 		PostgreSQLUsername: username,
@@ -44,14 +44,14 @@ func (a *Configuration) GetCustomPostgreSQLConfigs(database string,
 	}
 }
 
-func (a *Configuration) GetDefaultPostgreSQLConfigs() *MySQLConfig {
+func (a *configuration) GetDefaultPostgreSQLConfigs() *PostgreSQLConfig {
 	database := a.env.GetEnvOrDefault(defaultDatabaseName, defaultDatabaseValue)
 	host := a.env.GetEnvOrDefault(defaultHostName, defaultHostValue)
 	user := a.env.GetEnvOrDefault(defaultUserName, defaultUserValue)
 	password := a.env.GetEnvOrDefault(defaultPasswordName, defaultPasswordValue)
 	port := a.env.GetIntEnvOrDefault(defaultPort, defaultPortValue)
 
-	return &MySQLConfig{
+	return &PostgreSQLConfig{
 		PostgreSQLDatabase: database,
 		PostgreSQLHost:     host,
 		PostgreSQLUsername: user,
@@ -60,7 +60,7 @@ func (a *Configuration) GetDefaultPostgreSQLConfigs() *MySQLConfig {
 	}
 }
 
-type MySQLConfig struct {
+type PostgreSQLConfig struct {
 	PostgreSQLHost     string
 	PostgreSQLDatabase string
 	PostgreSQLUsername string

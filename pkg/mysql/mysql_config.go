@@ -18,20 +18,20 @@ const (
 	defaultPortValue     = 3306
 )
 
-type ConfigurationInterface interface {
+type Configuration interface {
 	GetDefaultMySQLConfigs() *MySQLConfig
 	GetCustomMySQLConfigs(database string, host string, username string, password string) *MySQLConfig
 }
 
-type Configuration struct {
-	env environment.EnvironmentInterface
+type configuration struct {
+	env environment.Environment
 }
 
-func New(env environment.EnvironmentInterface) ConfigurationInterface {
-	return &Configuration{env}
+func New(env environment.Environment) Configuration {
+	return &configuration{env}
 }
 
-func (a *Configuration) GetCustomMySQLConfigs(database string,
+func (a *configuration) GetCustomMySQLConfigs(database string,
 	host string,
 	username string,
 	password string,
@@ -44,7 +44,7 @@ func (a *Configuration) GetCustomMySQLConfigs(database string,
 	}
 }
 
-func (a *Configuration) GetDefaultMySQLConfigs() *MySQLConfig {
+func (a *configuration) GetDefaultMySQLConfigs() *MySQLConfig {
 	database := a.env.GetEnvOrDefault(defaultDatabaseName, defaultDatabaseValue)
 	host := a.env.GetEnvOrDefault(defaultHostName, defaultHostValue)
 	user := a.env.GetEnvOrDefault(defaultUserName, defaultUserValue)
