@@ -19,6 +19,12 @@ func New() Handler {
 }
 
 // Health
+// @Summary Método responsável por gerar um endpoint de helth (saúde da aplicação)
+// @Description Método responsável por gerar um endpoint de helth (saúde da aplicação)
+// @Tags health
+// @Accept json
+// @Produce json
+// @Router /health [get]
 func (a *handler) Health(c *gin.Context) {
 	response := Entity{}
 	response.IP = a.getLocalIP()
